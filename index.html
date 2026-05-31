@@ -4,85 +4,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gold Price Estimator - Live Update</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="description"
+    content="Estimate Indian gold jewelry prices with live 24K rate, purity, making charges, and GST." />
+  <title>Gold Price Estimator</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <div class="background-gradient"></div>
-
-  <div class="content">
-    <div class="header">
-      <div class="rings-container">
-        <img
-          src="https://images.pexels.com/photos/2219195/pexels-photo-2219195.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          alt="Gold rings" class="rings-image">
-        <div class="sparkle"></div>
+  <main class="app-shell">
+    <header class="hero" aria-labelledby="page-title">
+      <img
+        src="https://images.pexels.com/photos/2219195/pexels-photo-2219195.jpeg?auto=compress&cs=tinysrgb&w=720"
+        alt="Gold rings arranged on a dark surface" class="hero-image" />
+      <div class="hero-copy">
+        <p class="eyebrow">Jewelry price calculator</p>
+        <h1 id="page-title">Gold Price Estimator</h1>
+        <p>Calculate Indian jewelry estimates using a live 24K market rate, purity, making charges, and GST.</p>
       </div>
-      <div>
-        <h1 class="title"><span class="gold-coin">🪙</span>Gold Price Estimator</h1>
-        <p class="subtitle">Calculate your gold value instantly</p>
-      </div>
-    </div>
+    </header>
 
-    <div class="card">
-      <div class="input-row">
-        <div class="input-field">
-          <label>Weight (grams)</label>
-          <input type="number" id="weight" value="10" min="0.1" step="0.1">
+    <section class="estimator-panel" aria-label="Gold price calculator">
+      <form class="calculator-form" id="calculator-form">
+        <div class="market-bar">
+          <div>
+            <span class="market-label">Estimated Indian 24K rate</span>
+            <strong id="market-rate">Loading...</strong>
+            <small id="market-meta">Fetching the latest market rate</small>
+          </div>
+          <button type="button" id="refresh-rate">Refresh</button>
         </div>
-        <div class="input-field">
-          <label>Purity</label>
-          <div style="position:relative;">
-            <select id="purity">
+
+        <div class="input-grid">
+          <label>
+            <span>Weight (grams)</span>
+            <input type="number" id="weight" value="10" min="0" step="0.01" inputmode="decimal" required />
+          </label>
+
+          <label>
+            <span>Purity</span>
+            <select id="purity" required>
+              <option value="100">24K (100%)</option>
               <option value="91.6" selected>22K (91.6%)</option>
               <option value="75">18K (75%)</option>
               <option value="58.5">14K (58.5%)</option>
-              <option value="100">24K (100%)</option>
             </select>
-            <span class="select-arrow">▼</span>
+          </label>
+
+          <label>
+            <span>24K rate per gram (INR)</span>
+            <input type="number" id="rate" value="15665" min="0" step="1" inputmode="decimal" required />
+          </label>
+
+          <label>
+            <span>Making charges (%)</span>
+            <input type="number" id="making" value="10" min="0" step="0.01" inputmode="decimal" required />
+          </label>
+        </div>
+
+        <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="result" aria-live="polite">
+        <div class="result-heading">
+          <span>Estimated Price</span>
+          <strong id="total-price">&#8377;1,62,576</strong>
+        </div>
+
+        <dl class="result-list">
+          <div>
+            <dt>Base value</dt>
+            <dd id="base-price">&#8377;1,43,491</dd>
           </div>
-        </div>
+          <div>
+            <dt>Making charges</dt>
+            <dd id="making-charges">&#8377;14,349</dd>
+          </div>
+          <div>
+            <dt>GST (3%)</dt>
+            <dd id="gst">&#8377;4,735</dd>
+          </div>
+        </dl>
+        <p class="result-note">Indian market rates are indicative. Final jeweler prices can include city rate differences, wastage, hallmarking, and store margins.</p>
       </div>
-
-      <div class="input-row">
-        <div class="input-field">
-          <label>Rate per Gram (₹)</label>
-          <input type="number" id="rate" value="6000" min="0" step="1">
-        </div>
-        <div class="input-field">
-          <label>Making Charges (%)</label>
-          <input type="number" id="making" value="10" min="0" step="0.1">
-        </div>
-      </div>
-
-      <div class="result" id="result">
-        <div class="result-header">
-          <span class="dot">•</span> Estimation Result <span class="dot">•</span>
-        </div>
-
-        <div class="result-row">
-          <div><span class="icon">🪙</span> Base Price</div>
-          <div id="base-price">₹54,960</div>
-        </div>
-
-        <div class="result-row">
-          <div><span class="icon">⚙️</span> Making Charges</div>
-          <div id="making-charges">₹5,496</div>
-        </div>
-
-        <div class="result-row">
-          <div><span class="icon">💰</span> GST (3%)</div>
-          <div id="gst">₹1,813</div>
-        </div>
-
-        <div class="total-row">
-          <div class="total-label">Total Gold Price</div>
-          <div class="total-value" id="total-price">₹62,269</div>
-        </div>
-      </div>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
